@@ -1,0 +1,26 @@
+easyblock = 'PackedBinary'
+
+name = 'leafcutter'
+version = '0.2.7'
+
+homepage = 'https://github.com/davidaknowles/leafcutter/'
+description = """Annotation-free quantification of RNA splicing."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+#https://github.com/davidaknowles/leafcutter/archive/v0.2.7.tar.gz
+source_urls = ['https://github.com/davidaknowles/%(name)s/archive/']
+sources = ['v%(version)s.tar.gz']
+
+script_files = ['bam2junc.sh','bed2junc.pl','draw_clusters.R','ds_plots.R  filter_cs.py  gtf_to_exons.R  leafcutter_ds.R','plot_one_cluster.R',' prepare_phenotype_table.py  README.md','sam2bed.pl']
+clustering_files = ['check_files.py','convert_to_RData.R','get_cluster_gene.py','leafcutter_cluster.py','leafcutter_quant_only.py']
+vis_files = ['download_example.sh','download_human_annotation_codes.sh','gtf2leafcutter.pl','prepare_results.R','run_leafviz.R','server.R','ui.R','wrangle_annotation.sh']
+
+sanity_check_paths = {
+  'files': script_files+clustering_files+vis_files,
+  'dirs': ['clustering','scripts','laefviz']
+}
+
+modloadmsg = """To execute LeafCutter, use R -> library(leafcutter). For one of their provided scripts, use: <python|R|bash> \\${EBROOTLEAFCUTTER}/<clustering|scripts|leafviz>/<script.py|R|sh>"""
+
+moduleclass = 'bio'

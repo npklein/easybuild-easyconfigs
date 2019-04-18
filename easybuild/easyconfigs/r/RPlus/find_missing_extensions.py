@@ -1,62 +1,10 @@
-
-#
-# This EasyBuild config file for R was generated with generateEasyConfig.R
-#
-
-easyblock = 'Bundle'
-name = 'RPlus'
-version = '3.4.4'       # Same as the vanilla R module on which these add-on modules depend.
-versionsuffix = '-v19.01.2' # In format YY.MM.IncrementedReleaseNumber.
-homepage = 'http://www.r-project.org/'
-description = """R is a free software environment for statistical computing and graphics."""
-toolchain = {'name': 'foss', 'version': '2015b'}
-moduleclass = 'lang'
-modextrapaths = {'R_LIBS': ['library', '']}
-
-dependencies = [
-    ('R', '%(version)s','-bare'),
-    ('GMP', '6.1.1'),        # For igraph
-    ('NLopt', '2.4.2'),      # For nloptr
-]
-# The '.' is a silly workaround to check for whatever current dir as workaround 
-# until an updated RPackage is available, which installs extension R packages in a library subdir.
-sanity_check_paths = {
-    'files': [],
-    'dirs': [('library', '.')],
-}
-
-package_name_tmpl = '%(name)s_%(version)s.tar.gz'
-exts_defaultclass = 'RPackage'
-exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
-
-cran_options = {
-    'source_urls': [
-        'http://cran.r-project.org/src/contrib/',
-        'http://cran.r-project.org/src/contrib/Archive/%(name)s',
-    ],
-    'source_tmpl': package_name_tmpl,
-}
-
-bioconductor_options = {
-    'source_urls': [
-        'http://www.bioconductor.org/packages/release/bioc/src/contrib/',
-        'http://www.bioconductor.org/packages/release/data/annotation/src/contrib/',
-        'http://www.bioconductor.org/packages/release/data/experiment/src/contrib/',
-        'http://bioconductor.org/packages/3.6/bioc/src/contrib/',
-        'http://bioconductor.org/packages/3.6/data/annotation/src/contrib/',
-        'http://bioconductor.org/packages/3.6/data/experiment/src/contrib/',
-        'http://bioconductor.org/packages/3.6/extra/src/contrib/',
-    ],
-    'source_tmpl': package_name_tmpl,
-}
-
-
-#
-# R package list.
-#   * Order of packages is important!
-#   * Packages should be specified with fixed versions!
-#
 exts_list = [
+    ('lattice', '0.20-35', cran_options),
+    ('nlme', '3.1-131.1', cran_options),
+    ('Matrix', '1.2-12', cran_options),
+    ('mgcv', '1.8-26', cran_options),
+    ('plotfunctions', '1.3', cran_options),
+    ('itsadug', '2.3', cran_options),
     ('abind', '1.4-5', cran_options),
     ('acepack', '1.4.1', cran_options),
     ('MASS', '7.3-49', cran_options),
@@ -64,14 +12,10 @@ exts_list = [
     ('tkrplot', '0.0-23', cran_options),
     ('foreign', '0.8-69', cran_options),
     ('shapefiles', '0.7', cran_options),
-    ('lattice', '0.20-35', cran_options),
     ('sp', '1.2-7', cran_options),
     ('adehabitat', '1.8.20', cran_options),
-    ('nlme', '3.1-131.1', cran_options),
-    ('Matrix', '1.2-12', cran_options),
-    ('mgcv', '1.8-26', cran_options),
     ('nnet', '7.3-12', cran_options),
-    ('Rcpp', '1.0.0', cran_options),
+    ('Rcpp', '0.12.16', cran_options),
     ('minqa', '1.2.4', cran_options),
     ('nloptr', '1.0.4', cran_options),
     ('RcppEigen', '0.3.3.4.0', cran_options),
@@ -90,11 +34,11 @@ exts_list = [
     ('combinat', '0.0-8', cran_options),
     ('httpuv', '1.3.6.2', cran_options),
     ('mime', '0.5', cran_options),
-    ('jsonlite', '1.6', cran_options),
+    ('jsonlite', '1.5', cran_options),
     ('xtable', '1.8-2', cran_options),
-    ('digest', '0.6.18', cran_options),
+    ('digest', '0.6.15', cran_options),
     ('htmltools', '0.3.6', cran_options),
-    ('R6', '2.3.0', cran_options),
+    ('R6', '2.2.2', cran_options),
     ('sourcetools', '0.1.6', cran_options),
     ('shiny', '1.0.5', cran_options),
     ('miniUI', '0.1.1', cran_options),
@@ -104,18 +48,17 @@ exts_list = [
     ('e1071', '1.6-8', cran_options),
     ('classInt', '0.1-24', cran_options),
     ('magrittr', '1.5', cran_options),
-    ('rlang', '0.3.1', cran_options),
+    ('rlang', '0.2.0', cran_options),
     ('assertthat', '0.2.0', cran_options),
     ('crayon', '1.3.4', cran_options),
-    ('cli', '1.0.1', cran_options),
-    ('fansi', '0.4.0', cran_options),
-    ('utf8', '1.1.4', cran_options),
-    ('pillar', '1.3.1', cran_options),
-    ('pkgconfig', '2.0.2', cran_options),
-    ('tibble', '2.0.1', cran_options),
+    ('cli', '1.0.0', cran_options),
+    ('utf8', '1.1.3', cran_options),
+    ('pillar', '1.2.1', cran_options),
+    ('tibble', '1.4.2', cran_options),
     ('forcats', '0.3.0', cran_options),
+    ('pkgconfig', '2.0.1', cran_options),
     ('hms', '0.4.2', cran_options),
-    ('BH', '1.69.0-1', cran_options),
+    ('BH', '1.66.0-1', cran_options),
     ('readr', '1.1.1', cran_options),
     ('haven', '1.1.1', cran_options),
     ('labelled', '1.0.1', cran_options),
@@ -166,11 +109,9 @@ exts_list = [
     ('base64', '2.0', cran_options),
     ('base64enc', '0.1-3', cran_options),
     ('bindr', '0.1.1', cran_options),
-    ('bindrcpp', '0.2.2', cran_options),
-    ('glue', '1.3.0', cran_options),
-    ('purrr', '0.2.5', cran_options),
-    ('tidyselect', '0.2.5', cran_options),
-    ('dplyr', '0.7.8', cran_options),
+    ('bindrcpp', '0.2', cran_options),
+    ('glue', '1.2.0', cran_options),
+    ('dplyr', '0.7.4', cran_options),
     ('gtable', '0.2.0', cran_options),
     ('plyr', '1.8.4', cran_options),
     ('stringi', '1.1.7', cran_options),
@@ -196,18 +137,18 @@ exts_list = [
     ('betareg', '3.1-0', cran_options),
     ('bibtex', '0.4.2', cran_options),
     ('biglm', '0.9-1', cran_options),
+    ('bigmemory.sri', '0.1.3', cran_options),
+    ('bigmemory', '4.5.33', cran_options),
     ('hglm.data', '1.0-0', cran_options),
     ('hglm', '2.1-1', cran_options),
     ('DatABEL', '0.9-6', cran_options),
     ('bigRR', '1.3-10', cran_options),
-    ('bigmemory.sri', '0.1.3', cran_options),
-    ('bigmemory', '4.5.33', cran_options),
     ('gmp', '0.5-13.1', cran_options),
     ('polynom', '1.3-9', cran_options),
     ('partitions', '1.9-19', cran_options),
     ('binGroup', '2.1-1', cran_options),
     ('rappdirs', '0.3.1', cran_options),
-    ('yaml', '2.2.0', cran_options),
+    ('yaml', '2.1.18', cran_options),
     ('curl', '3.1', cran_options),
     ('httr', '1.3.1', cran_options),
     ('xml2', '1.2.0', cran_options),
@@ -242,17 +183,18 @@ exts_list = [
     ('mvtnorm', '1.0-7', cran_options),
     ('Brobdingnag', '1.2-5', cran_options),
     ('bridgesampling', '0.4-0', cran_options),
+    ('StanHeaders', '2.17.2', cran_options),
     ('inline', '0.3.14', cran_options),
     ('gridExtra', '2.3', cran_options),
+    ('rstan', '2.17.3', cran_options),
     ('matrixStats', '0.53.1', cran_options),
     ('loo', '1.1.0', cran_options),
-    ('htmlwidgets', '1.3', cran_options),
+    ('rstantools', '1.4.0', cran_options),
+    ('htmlwidgets', '1.0', cran_options),
     ('shinyjs', '1.0', cran_options),
     ('colourpicker', '1.0', cran_options),
     ('crosstalk', '1.0.0', cran_options),
-    ('later', '0.7.5', cran_options),
-    ('promises', '1.0.1', cran_options),
-    ('DT', '0.5', cran_options),
+    ('DT', '0.4', cran_options),
     ('xts', '0.10-2', cran_options),
     ('dygraphs', '1.1.1.4', cran_options),
     ('PKI', '0.1-5.1', cran_options),
@@ -262,7 +204,11 @@ exts_list = [
     ('shinythemes', '1.1.1', cran_options),
     ('igraph', '1.2.1', cran_options),
     ('threejs', '0.3.1', cran_options),
+    ('shinystan', '2.4.0', cran_options),
     ('nleqslv', '3.3.1', cran_options),
+    ('brms', '2.1.0', cran_options),
+    ('purrr', '0.2.4', cran_options),
+    ('tidyselect', '0.2.4', cran_options),
     ('tidyr', '0.8.0', cran_options),
     ('mnormt', '1.5-5', cran_options),
     ('psych', '1.7.8', cran_options),
@@ -299,7 +245,7 @@ exts_list = [
     ('RSiena', '1.2-3', cran_options),
     ('btergm', '1.9.1', cran_options),
     ('codetools', '0.2-15', cran_options),
-    ('iterators', '1.0.10', cran_options),
+    ('iterators', '1.0.9', cran_options),
     ('foreach', '1.4.4', cran_options),
     ('locfit', '1.5-9.1', cran_options),
     ('limma', '3.34.9', bioconductor_options),
@@ -405,17 +351,18 @@ exts_list = [
     ('diffusionMap', '1.1-0', cran_options),
     ('dlm', '1.1-4', cran_options),
     ('DNAcopy', '1.52.0', bioconductor_options),
-    ('doMC', '1.3.5', cran_options),
     ('doParallel', '1.0.11', cran_options),
     ('doSNOW', '1.0.16', cran_options),
     ('downloader', '0.4', cran_options),
     ('dtplyr', '0.0.2', cran_options),
     ('dtw', '1.18-1', cran_options),
     ('dynlm', '0.3-5', cran_options),
+    ('plotrix', '3.7', cran_options),
+    ('TeachingDemos', '2.10', cran_options),
+    ('plotmo', '3.3.6', cran_options),
     ('fda', '2.4.7', cran_options),
     ('tis', '1.34', cran_options),
     ('jpeg', '0.1-8', cran_options),
-    ('TeachingDemos', '2.10', cran_options),
     ('Ecfun', '0.1-7', cran_options),
     ('Ecdat', '0.3-1', cran_options),
     ('edgeR', '3.20.9', bioconductor_options),
@@ -433,6 +380,7 @@ exts_list = [
     ('fracdiff', '1.4-2', cran_options),
     ('forecast', '8.2', cran_options),
     ('expsmooth', '2.3', cran_options),
+    ('fansi', '0.4.0', cran_options),
     ('fastcluster', '1.1.24', cran_options),
     ('fastICA', '1.2-1', cran_options),
     ('fastmatch', '1.1-0', cran_options),
@@ -486,9 +434,6 @@ exts_list = [
     ('ggfortify', '0.4.3', cran_options),
     ('ggplot2movies', '0.0.1', cran_options),
     ('ggrepel', '0.7.0', cran_options),
-    ('ggsci', '2.9', cran_options),
-    ('ggsignif', '0.4.0', cran_options),
-    ('ggpubr', '0.2', cran_options),
     ('ggridges', '0.4.1', cran_options),
     ('ggthemes', '3.4.0', cran_options),
     ('glmnet', '2.0-13', cran_options),
@@ -526,14 +471,11 @@ exts_list = [
     ('IlluminaHumanMethylationEPICanno.ilm10b4.hg19', '0.6.0', bioconductor_options),
     ('IlluminaHumanMethylationEPICmanifest', '0.3.0', bioconductor_options),
     ('inlinedocs', '2013.9.3', cran_options),
-    ('intervals', '0.15.1', cran_options),
     ('repr', '0.12.0', cran_options),
     ('IRdisplay', '0.4.4', cran_options),
     ('irlba', '2.3.2', cran_options),
     ('Iso', '0.0-17', cran_options),
     ('ISwR', '2.0-7', cran_options),
-    ('plotfunctions', '1.3', cran_options),
-    ('itsadug', '2.3', cran_options),
     ('jose', '0.1', cran_options),
     ('JuliaCall', '0.12.1', cran_options),
     ('KFAS', '1.3.1', cran_options),
@@ -618,13 +560,10 @@ exts_list = [
     ('penalized', '0.9-50', cran_options),
     ('PerformanceAnalytics', '1.5.2', cran_options),
     ('pglm', '0.2-1', cran_options),
-    ('pheatmap', '1.0.12', cran_options),
     ('pinp', '0.0.4', cran_options),
     ('pixmap', '0.4-11', cran_options),
     ('pkgKitten', '0.1.4', cran_options),
     ('plotly', '4.7.1', cran_options),
-    ('plotrix', '3.7', cran_options),
-    ('plotmo', '3.3.6', cran_options),
     ('poLCA', '1.4.1', cran_options),
     ('polyclip', '1.6-1', cran_options),
     ('polyester', '1.14.1', bioconductor_options),
@@ -669,6 +608,7 @@ exts_list = [
     ('RSelenium', '1.7.1', cran_options),
     ('Rserve', '1.7-3', cran_options),
     ('rsm', '2.9', cran_options),
+    ('rstanarm', '2.17.3', cran_options),
     ('rticles', '0.4.1', cran_options),
     ('Rtsne', '0.13', cran_options),
     ('RUnit', '0.4.31', cran_options),
@@ -683,7 +623,6 @@ exts_list = [
     ('sn', '1.5-1', cran_options),
     ('tclust', '1.3-1', cran_options),
     ('Seurat', '2.3.0', cran_options),
-    ('shinycssloaders', '0.2.0', cran_options),
     ('sysfonts', '0.7.2', cran_options),
     ('showtextdb', '2.0', cran_options),
     ('showtext', '0.5-1', cran_options),
@@ -732,4 +671,3 @@ exts_list = [
     ('xlsx', '0.5.7', cran_options),
     ('zipcode', '1.0', cran_options),
     ('ztable', '0.1.5', cran_options),
-]
